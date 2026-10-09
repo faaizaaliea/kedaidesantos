@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-cream font-sans text-black;
+}
+
+.receipt {
+  display: none;
+}
+@media print {
+  body.cetak-struk * {
+    visibility: hidden;
+  }
+  body.cetak-struk .receipt,
+  body.cetak-struk .receipt * {
+    visibility: visible;
+  }
+  body.cetak-struk .receipt {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 58mm;
+    padding: 2mm;
+  }
+  @page {
+    margin: 0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #b1b2b5;
+  border-radius: 9999px;
+}
+html::-webkit-scrollbar {
+  width: 3px;
+}
+html::-webkit-scrollbar-track {
+  margin: 22vh 0 50vh;
+}
+.scroll-pendek-x::-webkit-scrollbar-track {
+  margin: 0 55% 0 20px;
+}
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #b1b2b5 transparent;
+  }
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid theme("colors.brand.DEFAULT");
+  border-radius: 0.375rem;
+  background: #fff;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked {
+  background: theme("colors.brand.DEFAULT")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.5'/%3E%3C/svg%3E")
+    center / 75% no-repeat;
+}
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid theme("colors.sage.DEFAULT");
+  outline-offset: 2px;
+}
+input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.anim-pop {
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.anim-ripple {
+  animation: ripple 0.9s ease-out 0.35s both;
+}
+.anim-check {
+  stroke-dasharray: 1;
+  animation: draw 0.45s ease-out 0.45s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop,
+  .anim-ripple {
+    animation: none;
+  }
+  .anim-ripple {
+    display: none;
+  }
+  .anim-check {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .animate-stamp-enter {
+    animation: none;
+  }
+  .animate-navbar-enter,
+  .animate-section-enter {
+    animation: none;
+  }
+}
+@keyframes navbar-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-navbar-enter {
+  animation: navbar-enter 0.7s ease-out both;
+}
+
+.animate-section-enter {
+  animation: section-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.15s;
+}
+
+@keyframes stamp-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-35px) rotate(12deg) scale(1.5);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg) scale(0.85);
+  }
+  72% {
+    transform: translateY(0) rotate(-6deg) scale(1.08);
+  }
+  85% {
+    transform: translateY(0) rotate(-6deg) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg) scale(1);
+  }
+}
+
+.animate-stamp-enter {
+  animation: stamp-enter 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  animation-delay: 0.75s;
+}
