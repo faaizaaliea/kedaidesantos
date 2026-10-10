@@ -49,6 +49,7 @@ export default function Login() {
             type={lihatPw ? "text" : "password"}
             value={pw}
             onChange={(e) => setPw(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && masuk()}
           />
 
           <button
@@ -58,7 +59,7 @@ export default function Login() {
             aria-pressed={lihatPw}
             className="absolute right-3 bottom-2 flex h-8 w-8 items-center justify-center text-sage-dark"
           >
-            {lihatPw ? (
+            {!lihatPw ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
