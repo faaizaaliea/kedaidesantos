@@ -4,7 +4,7 @@ import EditOrderSheet from "../../components/EditOrderSheet";
 
 export default function ActiveOrders({ orders, onSelesai, onCetak, onUbah }) {
   const [editId, setEditId] = useState(null);
-  const sedangEdit = editId && orders.find((o) => o.id === editId); // ikut data terbaru (Realtime)
+  const sedangEdit = editId && orders.find((o) => o.id === editId);
 
   return (
     <div className="space-y-4">

@@ -19,7 +19,7 @@ export default function Welcome() {
   return (
     <div className="relative mx-auto h-dvh max-w-[430px] overflow-hidden bg-brand-light">
       <div
-        className="absolute inset-x-0 -top-24 bottom-0 bg-cover bg-bottom"
+        className="hero-fade absolute inset-x-0 -top-24 bottom-0 bg-cover bg-bottom"
         style={{ backgroundImage: "url(/hero.webp)" }}
       />
 
