@@ -70,7 +70,7 @@ export default function OrderCard({
       </div>
       {order.sudah_bayar ? (
         <p className="mt-3 text-center text-xs text-sage-dark">
-          Sudah dibayar — pesanan terkunci
+          Sudah dibayar • pesanan terkunci
         </p>
       ) : (
         <button
