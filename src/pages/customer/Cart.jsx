@@ -49,7 +49,8 @@ export default function Cart() {
           />
         ))}
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[430px] overflow-hidden rounded-t-3xl bg-paper shadow-[0_-4px_12px_rgba(0,0,0,.12)]">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[430px] overflow-hidden rounded-t-3xl bg-paper shadow-pop">
+        {" "}
         <div className="flex items-center justify-between bg-cream px-6 py-3">
           <span className="font-semibold text-brand">Total Harga</span>
           <span className="text-3xl font-extrabold text-brand">
