@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Sheet from "../../components/Sheet";
 import Foto from "../../components/Foto";
 import Field, { SelectField } from "../../components/Field";
 import { supabase } from "../../lib/supabase";
@@ -14,10 +15,12 @@ const KOSONG = {
   tersedia: true,
   gambar_url: null,
 };
+
 async function hapusFile(url) {
   if (url && url.includes(`/${BUCKET}/`))
     await supabase.storage.from(BUCKET).remove([url.split(`/${BUCKET}/`)[1]]);
 }
+
 async function kecilkan(file) {
   const bmp = await createImageBitmap(file);
   const s = Math.min(1, 800 / Math.max(bmp.width, bmp.height));
@@ -97,95 +100,77 @@ function Form({ awal, kategori, onSelesai, onTutup }) {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end bg-black/40"
-      onClick={onTutup}
+    <Sheet
+      judul={awal.id ? "Edit Menu" : "Tambah Menu"}
+      onTutup={() => !busy && onTutup()}
     >
-      <div
-        className="mx-auto max-h-[92dvh] w-full max-w-[430px] overflow-y-auto rounded-t-3xl bg-cream p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold">
-            {awal.id ? "Edit Menu" : "Tambah Menu"}
-          </h2>
-          <button onClick={onTutup} aria-label="Tutup" className="text-2xl">
-            ✕
-          </button>
-        </div>
-        <div className="space-y-4 pt-1">
-          <div className="flex items-center gap-3">
-            <Foto src={preview} className="h-20 w-20 rounded-lg" />
-            <div className="flex flex-col gap-1 text-sm">
-              <label className="cursor-pointer rounded-xl bg-sage px-3 py-1.5 font-semibold text-white">
-                {preview ? "Ganti foto" : "Pilih foto"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  onChange={pilihFile}
-                />
-              </label>
-              {preview && (
-                <button
-                  onClick={hapusFoto}
-                  className="text-left text-sage-dark underline"
-                >
-                  Hapus foto
-                </button>
-              )}
-            </div>
+      <div className="space-y-4 px-6 pb-6 pt-5">
+        <div className="flex items-center gap-3">
+          <Foto src={preview} className="h-20 w-20 rounded-lg" />
+          <div className="flex flex-col gap-1 text-sm">
+            <label className="cursor-pointer rounded-xl bg-sage px-3 py-1.5 font-semibold text-white">
+              {preview ? "Ganti foto" : "Pilih foto"}
+              <input type="file" accept="image/*" hidden onChange={pilihFile} />
+            </label>
+            {preview && (
+              <button
+                onClick={hapusFoto}
+                className="text-left text-sage-dark underline"
+              >
+                Hapus foto
+              </button>
+            )}
           </div>
-          <Field label="Nama menu" value={f.nama} onChange={set("nama")} />
+        </div>
+        <Field label="Nama menu" value={f.nama} onChange={set("nama")} />
+        <Field
+          as="textarea"
+          rows={3}
+          label="Deskripsi"
+          value={f.deskripsi || ""}
+          onChange={set("deskripsi")}
+        />
+        <div className="grid grid-cols-2 gap-3">
           <Field
-            as="textarea"
-            rows={3}
-            label="Deskripsi"
-            value={f.deskripsi || ""}
-            onChange={set("deskripsi")}
+            label="Harga (Rp)"
+            type="number"
+            min="0"
+            value={f.harga}
+            onChange={set("harga")}
           />
-          <div className="grid grid-cols-2 gap-3">
-            <Field
-              label="Harga (Rp)"
-              type="number"
-              min="0"
-              value={f.harga}
-              onChange={set("harga")}
-            />
-            <Field
-              label="Urutan"
-              type="number"
-              value={f.urutan}
-              onChange={set("urutan")}
-            />
-          </div>
-          <SelectField
-            label="Kategori"
-            placeholder="Pilih kategori"
-            nilai={f.kategori}
-            daftar={kategori}
-            tambahBaru
-            onPilih={(v) => setF({ ...f, kategori: v })}
+          <Field
+            label="Urutan"
+            type="number"
+            value={f.urutan}
+            onChange={set("urutan")}
           />
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={f.tersedia}
-              onChange={set("tersedia")}
-            />{" "}
-            Menu tersedia
-          </label>
-          {err && <p className="text-sm text-red-700">{err}</p>}
-          <button
-            onClick={simpan}
-            disabled={busy}
-            className="w-full rounded-xl bg-brand py-3 text-white disabled:opacity-50"
-          >
-            {busy ? "Menyimpan…" : "Simpan"}
-          </button>
         </div>
+        <SelectField
+          label="Kategori"
+          placeholder="Pilih kategori"
+          nilai={f.kategori}
+          daftar={kategori}
+          tambahBaru
+          onPilih={(v) => setF({ ...f, kategori: v })}
+        />
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={f.tersedia}
+            onChange={set("tersedia")}
+          />{" "}
+          Menu tersedia
+        </label>
+        {err && <p className="text-sm text-red-700">{err}</p>}
+        <button
+          onClick={simpan}
+          disabled={busy}
+          className="w-full rounded-xl bg-brand py-3 text-white disabled:opacity-50"
+        >
+          {busy ? "Menyimpan…" : "Simpan"}
+        </button>
       </div>
-    </div>
+    </Sheet>
   );
 }
 
