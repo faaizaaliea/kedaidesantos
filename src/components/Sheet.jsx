@@ -7,7 +7,7 @@ export default function Sheet({ judul, subjudul, onTutup, children }) {
       onClick={onTutup}
     >
       <div
-        className="mx-auto flex max-h-[92dvh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-3xl bg-paper shadow-pop"
+        className="mx-auto flex max-h-[92dvh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-3xl bg-paper shadow-pop [--label-top:#fdfcf5]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-center justify-between bg-cream px-6 py-4">

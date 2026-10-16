@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const LABEL =
   "pointer-events-none absolute -top-2 left-3 z-[2] px-1 text-xs text-[#6f6d69] transition-colors " +
-  "bg-[linear-gradient(to_bottom,theme(colors.cream)_50%,#fff_50%)]";
+  "bg-[linear-gradient(to_bottom,var(--label-top,#f4f1e8)_50%,#fff_50%)]";
 const BOX =
   "w-full rounded-lg border border-[#dcdcdc] bg-white px-3.5 text-[15px] text-[#222325] outline-none transition " +
   "hover:border-sage focus:border-brand focus:ring-2 focus:ring-brand/10 " +
