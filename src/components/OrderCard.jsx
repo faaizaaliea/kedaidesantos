@@ -43,11 +43,11 @@ export default function OrderCard({
       <div className="flex items-start justify-between gap-2">
         <h3 className="break-all text-lg font-bold">#{order.nomor_pesanan}</h3>
         <div className="flex shrink-0 flex-col items-end gap-1">
-          <span className="rounded-xl bg-white px-3 py-1 text-sm font-semibold">
+          <span className="min-w-[5.5rem] text-center rounded-xl bg-white px-3 py-1 text-sm font-semibold">
             Diproses
           </span>
           {order.sudah_bayar && (
-            <span className="rounded-xl bg-brand px-3 py-0.5 text-xs font-semibold text-white">
+            <span className="min-w-[5.5rem] text-center rounded-xl bg-brand px-3 py-1 text-sm font-semibold text-white">
               Lunas
             </span>
           )}
