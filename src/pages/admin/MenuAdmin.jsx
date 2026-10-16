@@ -105,31 +105,34 @@ function Form({ awal, kategori, onSelesai, onTutup }) {
       onTutup={() => !busy && onTutup()}
     >
       <div className="space-y-4 px-6 pb-6 pt-5">
-        <div className="flex items-center gap-3">
-          <Foto src={preview} className="h-20 w-20 rounded-lg" />
-          <div className="flex flex-col gap-1 text-sm">
-            <label className="cursor-pointer rounded-xl bg-sage px-3 py-1.5 font-semibold text-white">
+        <div className="flex items-start gap-3">
+          <div className="flex w-28 shrink-0 flex-col items-center gap-2">
+            <Foto src={preview} className="h-28 w-28 rounded-lg" />
+            <label className="w-full cursor-pointer rounded-xl bg-sage px-3 py-1.5 text-center text-sm font-semibold text-white mt-1.5">
               {preview ? "Ganti foto" : "Pilih foto"}
               <input type="file" accept="image/*" hidden onChange={pilihFile} />
             </label>
             {preview && (
               <button
+                type="button"
                 onClick={hapusFoto}
-                className="text-left text-sage-dark underline"
+                className="text-xs text-sage-dark underline"
               >
                 Hapus foto
               </button>
             )}
           </div>
+          <div className="min-w-0 flex-1 space-y-4">
+            <Field label="Nama menu" value={f.nama} onChange={set("nama")} />
+            <Field
+              as="textarea"
+              rows={3}
+              label="Deskripsi"
+              value={f.deskripsi || ""}
+              onChange={set("deskripsi")}
+            />
+          </div>
         </div>
-        <Field label="Nama menu" value={f.nama} onChange={set("nama")} />
-        <Field
-          as="textarea"
-          rows={3}
-          label="Deskripsi"
-          value={f.deskripsi || ""}
-          onChange={set("deskripsi")}
-        />
         <div className="grid grid-cols-2 gap-3">
           <Field
             label="Harga (Rp)"
