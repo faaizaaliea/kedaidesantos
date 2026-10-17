@@ -19,7 +19,7 @@ export default {
       },
       boxShadow: {
         rim: "0 3px 10px 2px rgba(208,206,194,0.5)", // bayangan navbar & welcome
-        pop: "0 0 10px 2px rgba(135,149,135,0.5)",
+        pop: "0 0 10px 2px rgba(135,149,135,0.5)", //bayangan popup
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"], // teks utama

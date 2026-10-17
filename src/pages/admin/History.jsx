@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrderCard from "../../components/OrderCard";
 import SummaryCard from "../../components/SummaryCard";
+import Pagination from "../../components/Pagination";
 import useHistory from "../../hooks/useHistory";
+import usePagination from "../../hooks/usePagination";
 import { rupiah } from "../../lib/format";
 
 const P = [
@@ -15,6 +17,7 @@ export default function History({ onCetak }) {
   const nav = useNavigate();
   const [periode, setPeriode] = useState("harian");
   const { orders, jumlah, total } = useHistory(periode);
+  const hal = usePagination(orders, 15);
   const label = P.find((p) => p[0] === periode)[2];
 
   return (
@@ -23,7 +26,10 @@ export default function History({ onCetak }) {
         {P.map(([k, nama]) => (
           <button
             key={k}
-            onClick={() => setPeriode(k)}
+            onClick={() => {
+              setPeriode(k);
+              hal.setPage(1);
+            }}
             className={`flex flex-col items-start gap-1 ${
               periode === k ? "text-brand" : "text-sage-dark"
             }`}
@@ -47,7 +53,7 @@ export default function History({ onCetak }) {
             Belum ada pesanan selesai.
           </p>
         )}
-        {orders.map((o) => (
+        {hal.data.map((o) => (
           <OrderCard
             key={o.id}
             order={o}
@@ -58,6 +64,7 @@ export default function History({ onCetak }) {
           />
         ))}
       </div>
+      <Pagination hal={hal} />
     </div>
   );
 }

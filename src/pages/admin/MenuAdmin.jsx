@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Sheet from "../../components/Sheet";
 import Foto from "../../components/Foto";
 import Field, { SelectField } from "../../components/Field";
+import Pagination from "../../components/Pagination";
+import usePagination from "../../hooks/usePagination";
 import { supabase } from "../../lib/supabase";
 import { rupiah } from "../../lib/format";
 
@@ -16,11 +18,13 @@ const KOSONG = {
   gambar_url: null,
 };
 
+// Hapus file lama dari Storage (jika URL-nya milik bucket kita)
 async function hapusFile(url) {
   if (url && url.includes(`/${BUCKET}/`))
     await supabase.storage.from(BUCKET).remove([url.split(`/${BUCKET}/`)[1]]);
 }
 
+// Perkecil foto (maks 800px, WebP) sebelum upload supaya aplikasi tetap ringan
 async function kecilkan(file) {
   const bmp = await createImageBitmap(file);
   const s = Math.min(1, 800 / Math.max(bmp.width, bmp.height));
@@ -105,10 +109,11 @@ function Form({ awal, kategori, onSelesai, onTutup }) {
       onTutup={() => !busy && onTutup()}
     >
       <div className="space-y-4 px-6 pb-6 pt-5">
+        {/* Baris atas: kiri foto + tombol pilih foto, kanan nama + deskripsi (sejajar) */}
         <div className="flex items-start gap-3">
           <div className="flex w-28 shrink-0 flex-col items-center gap-2">
             <Foto src={preview} className="h-28 w-28 rounded-lg" />
-            <label className="w-full cursor-pointer rounded-xl bg-sage px-3 py-1.5 text-center text-sm font-semibold text-white mt-1.5">
+            <label className="w-full cursor-pointer rounded-xl bg-sage px-3 py-1.5 text-center text-sm font-semibold text-white">
               {preview ? "Ganti foto" : "Pilih foto"}
               <input type="file" accept="image/*" hidden onChange={pilihFile} />
             </label>
@@ -215,7 +220,8 @@ export default function MenuAdmin() {
     else await hapusFile(it.gambar_url);
     muat();
   };
-  const kategori = [...new Set(list.map((m) => m.kategori))];
+  const kategori = [...new Set(list.map((m) => m.kategori))]; // dari SEMUA menu, bukan hanya halaman ini
+  const hal = usePagination(list, 10); // maks. 10 menu per halaman, satu daftar (tanpa pengelompokan kategori)
 
   return (
     <div>
@@ -227,7 +233,7 @@ export default function MenuAdmin() {
       </button>
       {err && <p className="mb-3 text-sm text-red-700">{err}</p>}
       <div className="space-y-3">
-        {list.map((it) => (
+        {hal.data.map((it) => (
           <div
             key={it.id}
             className={`flex gap-3 rounded-2xl border-2 p-3 ${it.tersedia ? "border-line bg-cream" : "border-line bg-sand opacity-80"}`}
@@ -268,6 +274,7 @@ export default function MenuAdmin() {
           <p className="py-8 text-center text-sage-dark">Belum ada menu.</p>
         )}
       </div>
+      <Pagination hal={hal} />
       {form && (
         <Form
           awal={form}
