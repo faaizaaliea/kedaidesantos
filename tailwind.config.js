@@ -2,6 +2,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      screens: {
+        tab: "834px", // tablet 11" portrait
+        "tab-land": "1194px", // tablet 11" landscape
+      },
       colors: {
         brand: {
           DEFAULT: "#46564a", // warna dominan

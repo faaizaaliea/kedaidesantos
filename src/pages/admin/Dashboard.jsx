@@ -56,7 +56,7 @@ export default function Dashboard() {
     `rounded-xl border-2 border-brand px-4 py-1.5 text-sm ${tab === t ? "bg-sage/50 font-semibold" : "bg-white"}`;
 
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream pb-10">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream pb-10">
       <Navbar judul={"Dashboard\nKasir"} />
       <div className="flex flex-wrap items-center gap-2 px-5 py-4">
         <button className={chip("aktif")} onClick={() => setTab("aktif")}>

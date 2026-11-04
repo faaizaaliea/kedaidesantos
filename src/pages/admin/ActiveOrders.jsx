@@ -7,7 +7,7 @@ export default function ActiveOrders({ orders, onSelesai, onCetak, onUbah }) {
   const sedangEdit = editId && orders.find((o) => o.id === editId);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 tab:grid tab:grid-cols-2 tab:items-start tab:gap-4 tab:space-y-0">
       {orders.length === 0 && (
         <p className="py-10 text-center text-sage-dark">
           Belum ada pesanan aktif.

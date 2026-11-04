@@ -9,7 +9,7 @@ export default function Success() {
   if (!o) return <Navigate to={meja ? "/menu" : "/"} replace />;
 
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream pb-10">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream pb-10">
       <Navbar meja={o.nomor_meja} />
       <div className="relative mx-auto mt-8 h-28 w-28">
         <span

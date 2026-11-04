@@ -25,7 +25,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream pb-72">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream pb-72">
       <Navbar meja={meja.nomor} />
       <button
         onClick={() => nav("/menu")}
@@ -49,7 +49,7 @@ export default function Cart() {
           />
         ))}
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[430px] overflow-hidden rounded-t-3xl bg-paper shadow-pop">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto lebar-app overflow-hidden rounded-t-3xl bg-paper shadow-pop">
         {" "}
         <div className="flex items-center justify-between bg-cream px-6 py-3">
           <span className="font-semibold text-brand">Total Harga</span>

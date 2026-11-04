@@ -17,11 +17,11 @@ export default function Menu() {
 
   const aktif = kat || kategori[0]
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream pb-28">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream pb-28">
       <Navbar meja={meja.nomor} />
       <h2 className="px-5 pb-3 pt-5 text-xl font-semibold">Daftar Menu</h2>
       <CategoryTabs kategori={kategori} aktif={aktif} onPilih={setKat} />
-      <div className="space-y-3 px-5 pt-4">
+      <div className="space-y-3 px-5 pt-4 tab:grid tab:grid-cols-2 tab:gap-3 tab:space-y-0">
         {loading && <p>Memuat menu…</p>}
         {error && <p className="text-red-700">Gagal memuat menu.</p>}
         {menu.filter((m) => m.kategori === aktif).map((it) => (

@@ -35,7 +35,7 @@ export default function OrderDetail() {
   const balik = () => nav("/admin", { state: { tab: "riwayat" } });
 
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream pb-10">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream pb-10">
       <Navbar judul={"Dashboard\nKasir"} />
       <button
         onClick={balik}

@@ -18,13 +18,12 @@ const KOSONG = {
   gambar_url: null,
 };
 
-// Hapus file lama dari Storage (jika URL-nya milik bucket kita)
 async function hapusFile(url) {
   if (url && url.includes(`/${BUCKET}/`))
     await supabase.storage.from(BUCKET).remove([url.split(`/${BUCKET}/`)[1]]);
 }
 
-// Perkecil foto (maks 800px, WebP) sebelum upload supaya aplikasi tetap ringan
+// Perkecil foto (maks 800px, WebP)
 async function kecilkan(file) {
   const bmp = await createImageBitmap(file);
   const s = Math.min(1, 800 / Math.max(bmp.width, bmp.height));
@@ -109,7 +108,6 @@ function Form({ awal, kategori, onSelesai, onTutup }) {
       onTutup={() => !busy && onTutup()}
     >
       <div className="space-y-4 px-6 pb-6 pt-5">
-        {/* Baris atas: kiri foto + tombol pilih foto, kanan nama + deskripsi (sejajar) */}
         <div className="flex items-start gap-3">
           <div className="flex w-28 shrink-0 flex-col items-center gap-2">
             <Foto src={preview} className="h-28 w-28 rounded-lg" />
@@ -220,7 +218,7 @@ export default function MenuAdmin() {
     else await hapusFile(it.gambar_url);
     muat();
   };
-  const kategori = [...new Set(list.map((m) => m.kategori))]; // dari SEMUA menu, bukan hanya halaman ini
+  const kategori = [...new Set(list.map((m) => m.kategori))];
   const hal = usePagination(list, 10); // maks. 10 menu per halaman, satu daftar (tanpa pengelompokan kategori)
 
   return (

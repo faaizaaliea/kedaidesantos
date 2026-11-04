@@ -6,6 +6,12 @@ body {
   @apply bg-cream font-sans text-black;
 }
 
+@layer components {
+  .lebar-app {
+    @apply max-w-[430px] tab:max-w-2xl tab-land:max-w-4xl;
+  }
+}
+
 .receipt {
   display: none;
 }

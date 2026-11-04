@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="mx-auto min-h-dvh max-w-[430px] bg-cream">
+    <div className="mx-auto min-h-dvh lebar-app bg-cream">
       <Navbar judul={"Dashboard\nKasir"} />
 
       <div className="space-y-4 px-8 pt-10">
